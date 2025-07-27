@@ -83,14 +83,11 @@ const registrationSchema = new mongoose.Schema<RegistrationType>({
   hasChestPain: Boolean,
   hasBalanceIssues: Boolean,
   // Medical Details
-  hasOtherHealthInfo: Boolean,
-  isTakingMedications: Boolean,
-  hasImmediateHealthConcerns: Boolean,
+
   // Declaration
-  guardianName: String,
+
   guardianSignature: String,
-  emergencyContactName: String,
-  emergencyContactPhone: String,
+
   emergencyContactRelation: String,
   doctorClearance: { type: Boolean, required: true }
 }, {
