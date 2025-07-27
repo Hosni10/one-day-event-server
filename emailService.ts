@@ -24,196 +24,138 @@ const createConfirmationEmail = (registration: InsertRegistration) => {
     ? registration.kids.map(kid => `- ${kid.name} (Age: ${kid.age}, Gender: ${kid.gender}, T-Shirt: ${kid.tshirtSize})`).join('\n')
     : 'None';
 
+  const spouseInfo = registration.spouse 
+    ? `- ${registration.spouse.name} (Age: ${registration.spouse.age}, Gender: ${registration.spouse.gender}, T-Shirt: ${registration.spouse.tshirtSize})`
+    : 'None';
+
   const entertainmentSports = registration.entertainmentSports?.join(', ') || 'None';
   const competitiveSports = registration.competitiveSports?.join(', ') || 'None';
 
   return {
     subject: '🎉 DOF Registration Confirmation',
     html: `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>DOF Registration Confirmation</title>
-        <style>
-          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-          .section { margin-bottom: 25px; }
-          .section h3 { color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 5px; margin-bottom: 15px; }
-          .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-          .info-item { background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #667eea; }
-          .label { font-weight: bold; color: #555; }
-          .value { color: #333; }
-          .success-badge { background: #4CAF50; color: white; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-bottom: 20px; }
-          .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 14px; }
-          .highlight { background: #fff3cd; padding: 15px; border-radius: 8px; border-left: 4px solid #ffc107; margin: 15px 0; }
-          @media (max-width: 600px) {
-            .info-grid { grid-template-columns: 1fr; }
-          }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>🏆 DOF Registration Confirmed!</h1>
-            <p>Thank you for registering for our Company Day of family Event</p>
-          </div>
-          
-          <div class="content">
-            <div class="success-badge">✅ Registration Successful</div>
-            
-            <div class="section">
-              <h3>📋 Registration Details</h3>
-              <div class="info-grid">
-                <div class="info-item">
-                  <div class="label">Full Name:</div>
-                  <div class="value">${registration.fullName}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Email:</div>
-                  <div class="value">${registration.email}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Phone:</div>
-                  <div class="value">${registration.phone}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Department:</div>
-                  <div class="value">${registration.department}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Gender:</div>
-                  <div class="value">${registration.gender}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">T-Shirt Size:</div>
-                  <div class="value">${registration.parentTshirtSize}</div>
-                </div>
-              </div>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;margin:0 auto;font-family:Arial,Helvetica,sans-serif;background:#ffffff;">
+        <tr>
+          <td style="background:#4a90e2;color:#ffffff;padding:20px;text-align:center;">
+            <h1 style="margin:0 0 10px 0;font-size:24px;">DOF Registration Confirmed!</h1>
+            <p style="margin:0;">Thank you for registering for our Company Day of Family Event</p>
+          </td>
+        </tr>
+        
+        <tr>
+          <td style="padding:20px;">
+            <div style="background:#28a745;color:#ffffff;padding:8px 15px;text-align:center;margin-bottom:20px;font-weight:bold;">
+              Registration Successful
             </div>
-
-            <div class="section">
-              <h3>👨‍👩‍👧‍👦 Family Information</h3>
-              <div class="info-item">
-                <div class="label">Bringing Kids:</div>
-                <div class="value">${registration.bringingKids ? 'Yes' : 'No'}</div>
-              </div>
+            
+            <div style="margin-bottom:25px;border-bottom:1px solid #eeeeee;padding-bottom:20px;">
+              <h3 style="font-size:16px;font-weight:bold;color:#4a90e2;margin:0 0 15px 0;">Registration Details</h3>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Full Name:</strong> ${registration.fullName}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Email:</strong> ${registration.email}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Phone:</strong> ${registration.phone}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Department:</strong> ${registration.department}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Gender:</strong> ${registration.gender}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">T-Shirt Size:</strong> ${registration.parentTshirtSize}</p>
+            </div>
+  
+            <div style="margin-bottom:25px;border-bottom:1px solid #eeeeee;padding-bottom:20px;">
+              <h3 style="font-size:16px;font-weight:bold;color:#4a90e2;margin:0 0 15px 0;">Family Information</h3>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Bringing Kids:</strong> ${registration.bringingKids ? 'Yes' : 'No'}</p>
               ${registration.bringingKids ? `
-                <div class="info-item">
-                  <div class="label">Number of Kids:</div>
-                  <div class="value">${registration.numberOfKids}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Kids Details:</div>
-                  <div class="value">${kidsInfo}</div>
-                </div>
+                <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Number of Kids:</strong> ${registration.numberOfKids}</p>
+                <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Kids Details:</strong> ${kidsInfo}</p>
+              ` : ''}
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Bringing Spouse:</strong> ${registration.bringingSpouse ? 'Yes' : 'No'}</p>
+              ${registration.bringingSpouse ? `
+                <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Spouse Details:</strong> ${spouseInfo}</p>
               ` : ''}
             </div>
-
-            <div class="section">
-              <h3>⚽ Sports Preferences</h3>
-              <div class="info-grid">
-                <div class="info-item">
-                  <div class="label">Entertainment Sports:</div>
-                  <div class="value">${entertainmentSports}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Interested in Competing:</div>
-                  <div class="value">${registration.interestedInCompeting ? 'Yes' : 'No'}</div>
-                </div>
-                ${registration.interestedInCompeting ? `
-                  <div class="info-item">
-                    <div class="label">Competitive Sports:</div>
-                    <div class="value">${competitiveSports}</div>
-                  </div>
-                ` : ''}
-              </div>
+  
+            <div style="margin-bottom:25px;border-bottom:1px solid #eeeeee;padding-bottom:20px;">
+              <h3 style="font-size:16px;font-weight:bold;color:#4a90e2;margin:0 0 15px 0;">Sports Preferences</h3>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Entertainment Sports:</strong> ${entertainmentSports}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Interested in Competing:</strong> ${registration.interestedInCompeting ? 'Yes' : 'No'}</p>
+              ${registration.interestedInCompeting ? `
+                <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Competitive Sports:</strong> ${competitiveSports}</p>
+              ` : ''}
             </div>
-
-            <div class="section">
-              <h3>💪 Health Information</h3>
-              <div class="info-grid">
-                <div class="info-item">
-                  <div class="label">Last Exercise:</div>
-                  <div class="value">${registration.lastExercise}</div>
-                </div>
-                <div class="info-item">
-                  <div class="label">Medical Conditions:</div>
-                  <div class="value">${registration.medicalConditions?.join(', ') || 'None'}</div>
-                </div>
-              </div>
+  
+            <div style="margin-bottom:25px;border-bottom:1px solid #eeeeee;padding-bottom:20px;">
+              <h3 style="font-size:16px;font-weight:bold;color:#4a90e2;margin:0 0 15px 0;">Health Information</h3>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Last Exercise:</strong> ${registration.lastExercise}</p>
+              <p style="margin:0 0 10px 0;"><strong style="color:#666666;">Medical Conditions:</strong> ${registration.medicalConditions?.join(', ') || 'None'}</p>
             </div>
-
-            <div class="highlight">
-              <strong>📅 Event Details:</strong><br>
+  
+            <div style="background:#fff3cd;border:1px solid #ffeaa7;padding:15px;margin:20px 0;">
+              <strong>📅 Event Details:</strong><br><br>
               • Date: 17th August 2025<br>
               • Time: 8:00 AM - 6:00 PM<br>
-              • Location: Adnec Abu Dhabi Summer Sports hall 9<br>
-
-              <br>
+              • Location: Adnec Abu Dhabi Summer Sports hall 9<br><br>
+              
               <strong>🎯 Important Notes:</strong><br>
               • Please arrive 15 minutes before the event starts<br>
               • All participants will receive their event t-shirts on the day<br>
+              • Bring your registration confirmation<br>
             </div>
-
-            <div class="footer">
-              <p>If you have any questions, please contact the event organizers.</p>
-              <p>We look forward to seeing you at the Sports Day!</p>
-            </div>
-          </div>
-        </div>
-      </body>
-      </html>
+          </td>
+        </tr>
+        
+        <tr>
+          <td style="background:#f8f9fa;padding:20px;text-align:center;font-size:12px;color:#666666;">
+            <p style="margin:0 0 10px 0;">If you have any questions, please contact the event organizers.</p>
+            <p style="margin:0;">We look forward to seeing you at the Sports Day!</p>
+          </td>
+        </tr>
+      </table>
     `,
     text: `
-Sports Day Registration Confirmation
-
-Dear ${registration.fullName},
-
-Thank you for registering for our Company Sports Day Event! Your registration has been successfully received.
-
-REGISTRATION DETAILS:
-- Full Name: ${registration.fullName}
-- Email: ${registration.email}
-- Phone: ${registration.phone}
-- Department: ${registration.department}
-- Gender: ${registration.gender}
-- T-Shirt Size: ${registration.parentTshirtSize}
-
-FAMILY INFORMATION:
-- Bringing Kids: ${registration.bringingKids ? 'Yes' : 'No'}
-${registration.bringingKids ? `- Number of Kids: ${registration.numberOfKids}
-- Kids Details: ${kidsInfo}` : ''}
-
-SPORTS PREFERENCES:
-- Entertainment Sports: ${entertainmentSports}
-- Interested in Competing: ${registration.interestedInCompeting ? 'Yes' : 'No'}
-${registration.interestedInCompeting ? `- Competitive Sports: ${competitiveSports}` : ''}
-
-HEALTH INFORMATION:
-- Last Exercise: ${registration.lastExercise}
-- Medical Conditions: ${registration.medicalConditions?.join(', ') || 'None'}
-
-EVENT DETAILS:
-- Date: [Event Date]
-- Time: [Event Time]
-- Location: [Event Location]
-
-IMPORTANT NOTES:
-- Please arrive 15 minutes before the event starts
-- All participants will receive their event t-shirts on the day
-- Medical staff will be available throughout the event
-- Refreshments and snacks will be provided
-
-If you have any questions, please contact the event organizers.
-
-We look forward to seeing you at the Sports Day!
-
-Best regards,
-The Sports Day Team
+  DOF Registration Confirmation
+  
+  Dear ${registration.fullName},
+  
+  Thank you for registering for our Company Day of Family Event! Your registration has been successfully received.
+  
+  REGISTRATION DETAILS:
+  - Full Name: ${registration.fullName}
+  - Email: ${registration.email}
+  - Phone: ${registration.phone}
+  - Department: ${registration.department}
+  - Gender: ${registration.gender}
+  - T-Shirt Size: ${registration.parentTshirtSize}
+  
+  FAMILY INFORMATION:
+  - Bringing Kids: ${registration.bringingKids ? 'Yes' : 'No'}
+  ${registration.bringingKids ? `- Number of Kids: ${registration.numberOfKids}
+  - Kids Details: ${kidsInfo}` : ''}
+  - Bringing Spouse: ${registration.bringingSpouse ? 'Yes' : 'No'}
+  ${registration.bringingSpouse ? `- Spouse Details: ${spouseInfo}` : ''}
+  
+  SPORTS PREFERENCES:
+  - Entertainment Sports: ${entertainmentSports}
+  - Interested in Competing: ${registration.interestedInCompeting ? 'Yes' : 'No'}
+  ${registration.interestedInCompeting ? `- Competitive Sports: ${competitiveSports}` : ''}
+  
+  HEALTH INFORMATION:
+  - Last Exercise: ${registration.lastExercise}
+  - Medical Conditions: ${registration.medicalConditions?.join(', ') || 'None'}
+  
+  EVENT DETAILS:
+  - Date: 17th August 2025
+  - Time: 8:00 AM - 6:00 PM
+  - Location: Adnec Abu Dhabi Summer Sports hall 9
+  
+  IMPORTANT NOTES:
+  - Please arrive 15 minutes before the event starts
+  - All participants will receive their event t-shirts on the day
+  - Medical staff will be available throughout the event
+  - Refreshments and snacks will be provided
+  
+  If you have any questions, please contact the event organizers.
+  
+  We look forward to seeing you at the Sports Day!
+  
+  Best regards,
+  The Sports Day Team
     `
   };
 };

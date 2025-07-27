@@ -100,6 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         reg.bringingKids ? "Yes" : "No",
         reg.numberOfKids || 0,
         reg.kids ? reg.kids.map((kid: any) => `Name: ${kid.name}, Age: ${kid.age}, Gender: ${kid.gender}, Size: ${kid.tshirtSize}`).join("; ") : "",
+        reg.spouse ? `Name: ${reg.spouse.name}, Age: ${reg.spouse.age}, Gender: ${reg.spouse.gender}, Size: ${reg.spouse.tshirtSize}` : "",
         reg.entertainmentSports?.join(", ") || "",
         reg.interestedInCompeting ? "Yes" : "No",
         reg.competitiveSports?.join(", ") || "",

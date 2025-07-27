@@ -16,6 +16,12 @@ export const insertRegistrationSchema = z.object({
     gender: z.enum(["male", "female"]),
     tshirtSize: z.enum(["XS", "S", "M", "L", "XL", "XXL"])
   })).optional(),
+  spouse: z.object({
+    name: z.string().min(1, "Name is required"),
+    age: z.number().min(0, "Age is required"),
+    gender: z.enum(["male", "female"]),
+    tshirtSize: z.enum(["XS", "S", "M", "L", "XL", "XXL"])
+  }).optional(),
   entertainmentSports: z.array(z.string()).optional(),
   interestedInCompeting: z.boolean(),
   competitiveSports: z.array(z.string()).optional(),
@@ -25,6 +31,7 @@ export const insertRegistrationSchema = z.object({
   previousInjuries: z.string().optional(),
   physicalLimitations: z.string().optional(),
   healthConcerns: z.string().optional(),
+  bringingSpouse: z.boolean().optional(),
   // Physical Activity Readiness Questionnaire
   hasMedicalConditions: z.boolean().optional(),
   hasHeartCondition: z.boolean().optional(),
@@ -68,6 +75,12 @@ const registrationSchema = new mongoose.Schema<RegistrationType>({
     gender: { type: String, enum: ["male", "female"] },
     tshirtSize: { type: String, enum: ["XS", "S", "M", "L", "XL", "XXL"] }
   }],
+  spouse: {
+    name: { type: String },
+    age: { type: Number, min: 0 },
+    gender: { type: String, enum: ["male", "female"] },
+    tshirtSize: { type: String, enum: ["XS", "S", "M", "L", "XL", "XXL"] }
+  },
   entertainmentSports: [String],
   interestedInCompeting: { type: Boolean, required: true },
   competitiveSports: [String],
@@ -77,17 +90,19 @@ const registrationSchema = new mongoose.Schema<RegistrationType>({
   previousInjuries: String,
   physicalLimitations: String,
   healthConcerns: String,
+  bringingSpouse: { type: Boolean },
   // Physical Activity Readiness Questionnaire
   hasMedicalConditions: Boolean,
   hasHeartCondition: Boolean,
   hasChestPain: Boolean,
   hasBalanceIssues: Boolean,
   // Medical Details
-
+  hasOtherHealthInfo: Boolean,
+  isTakingMedications: Boolean,
+  hasImmediateHealthConcerns: Boolean,
   // Declaration
-
+  guardianName: String,
   guardianSignature: String,
-
   emergencyContactRelation: String,
   doctorClearance: { type: Boolean, required: true }
 }, {
