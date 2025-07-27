@@ -152,7 +152,6 @@ const createConfirmationEmail = (registration: InsertRegistration) => {
               • Date: 17th August 2025<br>
               • Time: 8:00 AM - 6:00 PM<br>
               • Location: Adnec Abu Dhabi Summer Sports hall 9<br>
-              • What to bring: Comfortable sports attire, water bottle, and enthusiasm!<br>
 
               <br>
               <strong>🎯 Important Notes:</strong><br>

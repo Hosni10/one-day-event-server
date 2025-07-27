@@ -12,7 +12,7 @@ export const insertRegistrationSchema = z.object({
   numberOfKids: z.number().min(0).optional(),
   kids: z.array(z.object({
     name: z.string().min(1, "Name is required"),
-    age: z.number().min(0).max(18),
+    age: z.number().min(0).max(18, "Age is required"),
     gender: z.enum(["male", "female"]),
     tshirtSize: z.enum(["XS", "S", "M", "L", "XL", "XXL"])
   })).optional(),
@@ -20,7 +20,7 @@ export const insertRegistrationSchema = z.object({
   interestedInCompeting: z.boolean(),
   competitiveSports: z.array(z.string()).optional(),
   lastExercise: z.string().optional(),
-  medicalConditions: z.array(z.string()).optional(),
+  medicalConditions: z.array(z.string()).min(1, "Please select at least one medical condition."),
   currentMedications: z.string().optional(),
   previousInjuries: z.string().optional(),
   physicalLimitations: z.string().optional(),
@@ -64,14 +64,14 @@ const registrationSchema = new mongoose.Schema<RegistrationType>({
   numberOfKids: { type: Number, min: 0 },
   kids: [{
     name: { type: String, required: true },
-    age: { type: Number, min: 0, max: 18 },
+    age: { type: Number, min: 0, max: 18 ,required: true},
     gender: { type: String, enum: ["male", "female"] },
     tshirtSize: { type: String, enum: ["XS", "S", "M", "L", "XL", "XXL"] }
   }],
   entertainmentSports: [String],
   interestedInCompeting: { type: Boolean, required: true },
   competitiveSports: [String],
-  lastExercise: String,
+  lastExercise: { type: String, required: true },
   medicalConditions: [String],
   currentMedications: String,
   previousInjuries: String,
